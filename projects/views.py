@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from projects.models import Project
+from django.shortcuts import render, get_object_or_404
+from .models import Project
 
 def project_index(request):
     projects = Project.objects.all()
@@ -8,8 +8,9 @@ def project_index(request):
     }
     return render(request, 'project_index.html', context)
 
-def project_detail(request, pk):
-    project = Project.objects.get(pk=pk)
+def project_detail(request, slug):
+    #project = Project.objects.get(pk=pk)
+    project = get_object_or_404(Project,slug=slug)
     context = {
         "project": project
     }
